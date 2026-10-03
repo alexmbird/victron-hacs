@@ -119,6 +119,7 @@ SENSOR_DESCRIPTIONS: Dict[Tuple[SensorDeviceClass, Optional[Units]], Any] = {
         key=VictronSensor.OFF_REASON,
         device_class=SensorDeviceClass.ENUM,
         options=[x.lower() for x in OffReason._member_names_],
+        translation_key="off_reason",
     ),
     (VictronSensor.CHARGER_ERROR, None): SensorEntityDescription(
         key=VictronSensor.CHARGER_ERROR,
