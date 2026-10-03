@@ -249,24 +249,30 @@ class VictronBluetoothDeviceData(BluetoothData):
             )
             input_voltage = parsed.get_input_voltage()
             input_current = parsed.get_input_current()
-            if input_voltage is not None and input_current is not None:
-                self.update_sensor(
-                    key=VictronSensor.INPUT_POWER,
-                    name="Input Power",
-                    native_unit_of_measurement=Units.POWER_WATT,
-                    native_value=round(input_voltage * input_current, 1),
-                    device_class=SensorDeviceClass.POWER,
-                )
+            self.update_sensor(
+                key=VictronSensor.INPUT_POWER,
+                name="Input Power",
+                native_unit_of_measurement=Units.POWER_WATT,
+                native_value=(
+                    round(input_voltage * input_current, 1)
+                    if input_voltage is not None and input_current is not None
+                    else None
+                ),
+                device_class=SensorDeviceClass.POWER,
+            )
             output_voltage = parsed.get_output_voltage()
             output_current = parsed.get_output_current()
-            if output_voltage is not None and output_current is not None:
-                self.update_sensor(
-                    key=VictronSensor.OUTPUT_POWER,
-                    name="Output Power",
-                    native_unit_of_measurement=Units.POWER_WATT,
-                    native_value=round(output_voltage * output_current, 1),
-                    device_class=SensorDeviceClass.POWER,
-                )
+            self.update_sensor(
+                key=VictronSensor.OUTPUT_POWER,
+                name="Output Power",
+                native_unit_of_measurement=Units.POWER_WATT,
+                native_value=(
+                    round(output_voltage * output_current, 1)
+                    if output_voltage is not None and output_current is not None
+                    else None
+                ),
+                device_class=SensorDeviceClass.POWER,
+            )
             self.update_sensor(
                 key=VictronSensor.OFF_REASON,
                 native_unit_of_measurement=None,
